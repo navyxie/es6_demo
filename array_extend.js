@@ -22,3 +22,9 @@ function foo() {
   var args = Array.from(arguments);
   // ...
 }
+
+Array.from('hello')
+// ['h', 'e', 'l', 'l', 'o']
+
+let namesSet = new Set(['a', 'b'])
+Array.from(namesSet) // ['a', 'b']
