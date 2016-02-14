@@ -21,3 +21,9 @@ person.age = 100;
 person.age // 100
 person.age = 'young' // 报错
 person.age = 300 // 报错
+
+// 老写法
+'assign' in Object // true
+
+// 新写法
+Reflect.has(Object, 'assign') // true
