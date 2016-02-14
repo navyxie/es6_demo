@@ -46,3 +46,21 @@ function getArea(shape, options) {
 }
 
 getArea(shapeType.triangle, { width: 100, height: 100 });
+
+var obj = {};
+
+var foo = Symbol("foo");
+
+Object.defineProperty(obj, foo, {
+  value: "foobar",
+});
+
+for (var i in obj) {
+  console.log(i); // 无输出
+}
+
+Object.getOwnPropertyNames(obj)
+// []
+
+Object.getOwnPropertySymbols(obj)
+// [Symbol(foo)]
