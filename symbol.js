@@ -64,3 +64,42 @@ Object.getOwnPropertyNames(obj)
 
 Object.getOwnPropertySymbols(obj)
 // [Symbol(foo)]
+
+let obj = {
+  [Symbol('my_key')]: 1,
+  enum: 2,
+  nonEnum: 3
+};
+
+Reflect.ownKeys(obj)
+// [Symbol(my_key), 'enum', 'nonEnum']
+
+
+var size = Symbol('size');
+
+class Collection {
+  constructor() {
+    this[size] = 0;
+  }
+
+  add(item) {
+    this[this[size]] = item;
+    this[size]++;
+  }
+
+  static sizeOf(instance) {
+    return instance[size];
+  }
+}
+
+var x = new Collection();
+Collection.sizeOf(x) // 0
+
+x.add('foo');
+Collection.sizeOf(x) // 1
+
+Object.keys(x) // ['0']
+Object.getOwnPropertyNames(x) // ['0']
+Object.getOwnPropertySymbols(x) // [Symbol(size)]
+//上面代码中，对象x的size属性是一个Symbol值，所以Object.keys(x)、Object.getOwnPropertyNames(x)都无法获取它。这就造成了一种非私有的内部方法的效果。
+
