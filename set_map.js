@@ -27,3 +27,32 @@ s.has(3) // false
 
 s.delete(2);
 s.has(2) // false
+
+function dedupe(array) {
+  return Array.from(new Set(array));
+}
+
+dedupe([1,1,2,3]) // [1, 2, 3]
+
+let set = new Set(['red', 'green', 'blue']);
+
+for ( let item of set.keys() ){
+  console.log(item);
+}
+// red
+// green
+// blue
+
+for ( let item of set.values() ){
+  console.log(item);
+}
+// red
+// green
+// blue
+
+for ( let item of set.entries() ){
+  console.log(item);
+}
+// ["red", "red"]
+// ["green", "green"]
+// ["blue", "blue"]
