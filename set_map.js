@@ -113,3 +113,13 @@ m.get(o) // "content"
 m.has(o) // true
 m.delete(o) // true
 m.has(o) // false
+
+//作为构造函数，Map也可以接受一个数组作为参数。该数组的成员是一个个表示键值对的数组。
+
+var map = new Map([["name", "张三"], ["title", "Author"]]);
+
+map.size // 2
+map.has("name") // true
+map.get("name") // "张三"
+map.has("title") // true
+map.get("title") // "Author"
