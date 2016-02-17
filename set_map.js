@@ -90,3 +90,16 @@ set = new Set([...set].map(val => val * 2));
 let set = new Set([1, 2, 3]);
 set = new Set(Array.from(set, val => val * 2));
 // set的值是2, 4, 6
+
+var ws = new WeakSet();
+var obj = {};
+var foo = {};
+
+ws.add(window);
+ws.add(obj);
+
+ws.has(window); // true
+ws.has(foo);    // false
+
+ws.delete(window);
+ws.has(window);    // false
