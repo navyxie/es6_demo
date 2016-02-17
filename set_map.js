@@ -103,3 +103,42 @@ ws.has(foo);    // false
 
 ws.delete(window);
 ws.has(window);    // false
+
+var m = new Map();
+var o = {p: "Hello World"};
+
+m.set(o, "content")
+m.get(o) // "content"
+
+m.has(o) // true
+m.delete(o) // true
+m.has(o) // false
+
+//作为构造函数，Map也可以接受一个数组作为参数。该数组的成员是一个个表示键值对的数组。
+
+var map = new Map([["name", "张三"], ["title", "Author"]]);
+
+map.size // 2
+map.has("name") // true
+map.get("name") // "张三"
+map.has("title") // true
+map.get("title") // "Author"
+
+//Map结构转为数组结构，比较快速的方法是结合使用扩展运算符（...）。
+let map = new Map([
+  [1, 'one'],
+  [2, 'two'],
+  [3, 'three'],
+]);
+
+[...map.keys()]
+// [1, 2, 3]
+
+[...map.values()]
+// ['one', 'two', 'three']
+
+[...map.entries()]
+// [[1,'one'], [2, 'two'], [3, 'three']]
+
+[...map]
+// [[1,'one'], [2, 'two'], [3, 'three']]
