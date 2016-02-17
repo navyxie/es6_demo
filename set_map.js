@@ -123,3 +123,22 @@ map.has("name") // true
 map.get("name") // "张三"
 map.has("title") // true
 map.get("title") // "Author"
+
+//Map结构转为数组结构，比较快速的方法是结合使用扩展运算符（...）。
+let map = new Map([
+  [1, 'one'],
+  [2, 'two'],
+  [3, 'three'],
+]);
+
+[...map.keys()]
+// [1, 2, 3]
+
+[...map.values()]
+// ['one', 'two', 'three']
+
+[...map.entries()]
+// [[1,'one'], [2, 'two'], [3, 'three']]
+
+[...map]
+// [[1,'one'], [2, 'two'], [3, 'three']]
