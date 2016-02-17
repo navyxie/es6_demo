@@ -56,3 +56,12 @@ for ( let item of set.entries() ){
 // ["red", "red"]
 // ["green", "green"]
 // ["blue", "blue"]
+
+let set = new Set(['red', 'green', 'blue']);
+
+for (let x of set) {
+  console.log(x);
+}
+// red
+// green
+// blue
