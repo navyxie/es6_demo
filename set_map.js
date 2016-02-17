@@ -80,3 +80,13 @@ let intersect = new Set([...a].filter(x => b.has(x)));
 // 差集
 let difference = new Set([...a].filter(x => !b.has(x)));
 // [1]
+
+// 方法一
+let set = new Set([1, 2, 3]);
+set = new Set([...set].map(val => val * 2));
+// set的值是2, 4, 6
+
+// 方法二
+let set = new Set([1, 2, 3]);
+set = new Set(Array.from(set, val => val * 2));
+// set的值是2, 4, 6
