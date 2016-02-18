@@ -33,3 +33,25 @@ iter.next() // { value: 'a', done: false }
 iter.next() // { value: 'b', done: false }
 iter.next() // { value: 'c', done: false }
 iter.next() // { value: undefined, done: true }
+
+
+var str = new String("hi");
+
+[...str] // ["h", "i"]
+
+str[Symbol.iterator] = function() {
+  return {
+    next: function() {
+      if (this._first) {
+        this._first = false;
+        return { value: "bye", done: false };
+      } else {
+        return { done: true };
+      }
+    },
+    _first: true
+  };
+};
+
+[...str] // ["bye"]
+str // "hi"
