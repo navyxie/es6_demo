@@ -39,3 +39,13 @@ var p2 = new Promise(function (resolve, reject) {
 p2.then(result => console.log(result))
 p2.catch(error => console.log(error))
 // Error: fail
+
+getJSON("/post/1.json").then(function(post) {
+  return getJSON(post.commentURL);
+}).then(function funcA(comments) {
+  console.log("Resolved: ", comments);
+}, function funcB(err){
+  console.log("Rejected: ", err);
+});
+
+//上面代码中，第一个then方法指定的回调函数，返回的是另一个Promise对象。这时，第二个then方法指定的回调函数，就会等待这个新的Promise对象状态发生变化。如果变为Resolved，就调用funcA，如果状态变为Rejected，就调用funcB
