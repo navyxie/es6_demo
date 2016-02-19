@@ -49,3 +49,13 @@ getJSON("/post/1.json").then(function(post) {
 });
 
 //上面代码中，第一个then方法指定的回调函数，返回的是另一个Promise对象。这时，第二个then方法指定的回调函数，就会等待这个新的Promise对象状态发生变化。如果变为Resolved，就调用funcA，如果状态变为Rejected，就调用funcB
+
+
+//Promise.prototype.catch方法是.then(null, rejection)的别名，用于指定发生错误时的回调函数。
+
+getJSON("/posts.json").then(function(posts) {
+  // ...
+}).catch(function(error) {
+  // 处理前一个回调函数运行时发生的错误
+  console.log('发生错误！', error);
+});
