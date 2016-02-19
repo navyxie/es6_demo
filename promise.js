@@ -59,3 +59,23 @@ getJSON("/posts.json").then(function(posts) {
   // 处理前一个回调函数运行时发生的错误
   console.log('发生错误！', error);
 });
+
+// 写法一
+var promise = new Promise(function(resolve, reject) {
+  try {
+    throw new Error('test');
+  } catch(e) {
+    reject(e);
+  }
+});
+promise.catch(function(error) {
+  console.log(error);
+});
+
+// 写法二
+var promise = new Promise(function(resolve, reject) {
+  reject(new Error('test'));
+});
+promise.catch(function(error) {
+  console.log(error);
+});
