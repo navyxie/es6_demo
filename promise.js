@@ -59,3 +59,51 @@ getJSON("/posts.json").then(function(posts) {
   // 处理前一个回调函数运行时发生的错误
   console.log('发生错误！', error);
 });
+
+// 写法一
+var promise = new Promise(function(resolve, reject) {
+  try {
+    throw new Error('test');
+  } catch(e) {
+    reject(e);
+  }
+});
+promise.catch(function(error) {
+  console.log(error);
+});
+
+// 写法二
+var promise = new Promise(function(resolve, reject) {
+  reject(new Error('test'));
+});
+promise.catch(function(error) {
+  console.log(error);
+});
+
+var jsPromise = Promise.resolve($.ajax('/whatever.json'));
+Promise.resolve('foo')
+// 等价于
+new Promise(resolve => resolve('foo'))
+
+var p = Promise.reject('出错了');
+// 等同于
+var p = new Promise((resolve, reject) => reject('出错了'))
+
+p.then(null, function (s){
+  console.log(s)
+});
+// 出错了
+
+asyncFunc()
+  .then(f1)
+  .catch(r1)
+  .then(f2)
+  .done();
+
+  //finally方法用于指定不管Promise对象最后状态如何，都会执行的操作。它与done方法的最大区别，它接受一个普通的回调函数作为参数，该函数不管怎样都必须执行。
+
+  server.listen(0)
+  .then(function () {
+    // run test
+  })
+  .finally(server.stop);
