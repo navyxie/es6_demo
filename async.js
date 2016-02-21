@@ -104,3 +104,13 @@ co(function* () {
   };
   console.log(res);
 }).catch(onerror);
+
+co(function* () {
+  var values = [n1, n2, n3];
+  yield values.map(somethingAsync);
+});
+
+function* somethingAsync(x) {
+  // do something async
+  return y
+}
