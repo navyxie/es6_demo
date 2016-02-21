@@ -114,3 +114,124 @@ function* somethingAsync(x) {
   // do something async
   return y
 }
+
+
+var gen = function* (){
+  var f1 = yield readFile('/etc/fstab');
+  var f2 = yield readFile('/etc/shells');
+  console.log(f1.toString());
+  console.log(f2.toString());
+};
+
+
+
+var asyncReadFile = async function (){
+  var f1 = await readFile('/etc/fstab');
+  var f2 = await readFile('/etc/shells');
+  console.log(f1.toString());
+  console.log(f2.toString());
+};
+
+//一比较就会发现，async函数就是将Generator函数的星号（*）替换成async，将yield替换成await，仅此而已。
+
+
+async function myFunction() {
+  try {
+    await somethingThatReturnsAPromise();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// 另一种写法
+
+async function myFunction() {
+  await somethingThatReturnsAPromise().catch(function (err){
+    console.log(err);
+  };
+}
+
+//await命令后面的Promise对象，运行结果可能是rejected，所以最好把await命令放在try...catch代码块中。
+
+
+// 写法一
+let [foo, bar] = await Promise.all([getFoo(), getBar()]);
+
+// 写法二
+let fooPromise = getFoo();
+let barPromise = getBar();
+let foo = await fooPromise;
+let bar = await barPromise;
+
+//上面两种写法，getFoo和getBar都是同时触发，这样就会缩短程序的执行时间。
+
+
+//我们通过一个例子，来看Async函数与Promise、Generator函数的区别。
+
+//假定某个DOM元素上面，部署了一系列的动画，前一个动画结束，才能开始后一个。如果当中有一个动画出错，就不再往下执行，返回上一个成功执行的动画的返回值。
+
+//首先是Promise的写法。
+
+//promise 写法
+
+function chainAnimationsPromise(elem, animations) {
+
+  // 变量ret用来保存上一个动画的返回值
+  var ret = null;
+
+  // 新建一个空的Promise
+  var p = Promise.resolve();
+
+  // 使用then方法，添加所有动画
+  for(var anim in animations) {
+    p = p.then(function(val) {
+      ret = val;
+      return anim(elem);
+    })
+  }
+
+  // 返回一个部署了错误捕捉机制的Promise
+  return p.catch(function(e) {
+    /* 忽略错误，继续执行 */
+  }).then(function() {
+    return ret;
+  });
+
+}
+
+//generator 写法
+
+function chainAnimationsGenerator(elem, animations) {
+
+  return spawn(function*() {
+    var ret = null;
+    try {
+      for(var anim of animations) {
+        ret = yield anim(elem);
+      }
+    } catch(e) {
+      /* 忽略错误，继续执行 */
+    }
+      return ret;
+  });
+
+}
+
+
+// async写法
+
+
+async function chainAnimationsAsync(elem, animations) {
+  var ret = null;
+  try {
+    for(var anim of animations) {
+      ret = await anim(elem);
+    }
+  } catch(e) {
+    /* 忽略错误，继续执行 */
+  }
+  return ret;
+}
+
+
+
