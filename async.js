@@ -73,3 +73,16 @@ function thunkify(fn){
     }
   }
 };
+
+function f(a, b, callback){
+  var sum = a + b;
+  callback(sum);
+  callback(sum);
+}
+
+var ft = thunkify(f);
+var print = console.log.bind(console);
+ft(1, 2)(print);
+// 3
+
+//分步执行，done实际上是f函数的回调函数
