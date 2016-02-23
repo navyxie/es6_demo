@@ -71,3 +71,28 @@ class Bar extends Foo {
 Bar.classMethod(); // 'hello'
 
 //父类的静态方法，可以被子类继承。
+
+
+//静态属性指的是Class本身的属性，即Class.propname，而不是定义在实例对象（this）上的属性。
+
+class Foo {
+}
+
+Foo.prop = 1;
+Foo.prop // 1
+
+//上面的写法可以读写Foo类的静态属性prop。
+
+//目前，只有这种写法可行，因为ES6明确规定，Class内部只有静态方法，没有静态属性。
+
+// 以下两种写法都无效，
+// 但不会报错
+class Foo {
+  // 写法一
+  prop: 2
+
+  // 写法二
+  static prop: 2
+}
+
+Foo.prop // undefined
