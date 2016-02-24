@@ -91,3 +91,29 @@ exports.bad = function (arg) {
 };
 
 //上面代码中，如果发生循环加载，require('a').foo的值很可能后面会被改写，改用require('a')会更保险一点。
+
+
+// a.js
+import {bar} from './b.js';
+export function foo() {
+  bar();
+  console.log('执行完毕');
+}
+foo();
+
+// b.js
+import {foo} from './a.js';
+export function bar() {
+  if (Math.random() > 0.5) {
+    foo();
+  }
+}
+//按照CommonJS规范，上面的代码是没法执行的。a先加载b，然后b又加载a，这时a还没有任何执行结果，所以输出结果为null，即对于b.js来说，变量foo的值等于null，后面的foo()就会报错。
+
+//但是，ES6可以执行上面的代码。
+
+//$ babel-node a.js
+
+//执行完毕
+
+//a.js之所以能够执行，原因就在于ES6加载的变量，都是动态引用其所在的模块。只要引用是存在的，代码就能执行。
