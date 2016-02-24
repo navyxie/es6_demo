@@ -63,3 +63,31 @@ export {add as default};
 import { default as xxx } from 'modules';
 // 等同于
 // import xxx from 'modules';
+
+// circleplus.js
+
+export * from 'circle';
+export var e = 2.71828182846;
+export default function(x) {
+  return Math.exp(x);
+}
+//模块之间也可以继承。
+
+//假设有一个circleplus块，继承了circle模块。
+
+//上面代码中的export *，表示再输出circle模块的所有属性和方法。注意，export *命令会忽略circle模块的default方法。然后，上面代码又输出了自定义的e变量和默认方法。
+
+
+//commonjs模块加载
+var a = require('a'); // 安全的写法
+var foo = require('a').foo; // 危险的写法
+
+exports.good = function (arg) {
+  return a.foo('good', arg); // 使用的是 a.foo 的最新值
+};
+
+exports.bad = function (arg) {
+  return foo('bad', arg); // 使用的是一个部分加载时的值
+};
+
+//上面代码中，如果发生循环加载，require('a').foo的值很可能后面会被改写，改用require('a')会更保险一点。
